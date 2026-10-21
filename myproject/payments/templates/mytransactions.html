@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">My Transactions</h2>
+<table border="1" cellpadding="6" style="width:90%;margin:auto;">
+<tr style="background:#1e1e2f;color:#fff;">
+    <th>Date</th><th>Type</th><th>Amount</th><th>Rental Request</th><th>Txn ID</th>
+</tr>
+{% for t in transactions %}
+<tr>
+    <td>{{ t.created_at|date:"Y-m-d H:i" }}</td>
+    <td>{{ t.get_txn_type_display }}</td>
+    <td>₹{{ t.amount }}</td>
+    <td>{% if t.rental_request %}#{{ t.rental_request.id }}{% else %}-{% endif %}</td>
+    <td>{{ t.txn_id }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="5">No transactions yet.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

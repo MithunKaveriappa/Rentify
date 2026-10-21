@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color: #00bcd4;">My Items</h2>
+<a href="{% url 'add_item' %}" style="background:#4caf50;color:#fff;padding:7px 18px; border:none; border-radius:5px; margin-bottom:10px;display:inline-block;">+ Add Item</a>
+<table border="1" cellpadding="7" cellspacing="0" style="width:95%; margin: auto; background:#f8f8ff;">
+    <tr style="background:#1e1e2f; color:#fff;">
+        <th>Title</th><th>Category</th><th>Status</th><th>Rent/Day</th><th>Actions</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.category }}</td>
+        <td>{% if item.is_available %}Available{% else %}<span style="color:red;">Not available</span>{% endif %}</td>
+        <td>₹{{ item.daily_rent_price }}</td>
+        <td>
+            <a href="{% url 'item_detail' item.slug %}">View</a> |
+            <a href="{% url 'edit_item' item.slug %}">Edit</a> |
+            <a href="{% url 'delete_item' item.slug %}" style="color:red;">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No items found.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

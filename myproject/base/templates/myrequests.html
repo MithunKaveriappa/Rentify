@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">My Rental Requests</h2>
+<table border="1" cellpadding="6" style="width:95%; background:#f8f8ff;">
+  <tr style="background:#1e1e2f;color:#fff;">
+    <th>Item</th><th>Owner</th><th>Start</th><th>End</th><th>Status</th><th>Action</th>
+  </tr>
+  {% for r in requests %}
+  <tr>
+    <td>{{ r.item.title }}</td>
+    <td>{{ r.item.owner.full_name }}</td>
+    <td>{{ r.rental_start }}</td>
+    <td>{{ r.rental_end }}</td>
+    <td>{{ r.status }}</td>
+    <td>
+      {% if r.status == "APPROVED" and not r.payment_confirmed %}
+      <a href="{% url 'rental_payment' r.pk %}" style="background:#4caf50;color:white;padding:4px 10px;border-radius:4px;">Pay & Start</a>
+      {% elif r.status == "COMPLETED" %}
+      Complete
+      {% else %}
+      -
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">No requests made.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

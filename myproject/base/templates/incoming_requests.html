@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Requests for My Items</h2>
+<table border="1" cellpadding="6" style="width:95%; background:#f8f8ff;">
+  <tr style="background:#1e1e2f;color:#fff;">
+    <th>Renter</th><th>Item</th><th>From</th><th>To</th><th>Status</th><th>Actions</th>
+  </tr>
+  {% for req in requests %}
+  <tr>
+    <td>{{ req.renter.full_name }}</td>
+    <td>{{ req.item.title }}</td>
+    <td>{{ req.rental_start }}</td>
+    <td>{{ req.rental_end }}</td>
+    <td>{{ req.status }}</td>
+    <td>
+      {% if req.status == "PENDING" %}
+        <a href="{% url 'handle_request' req.pk 'approve' %}" style="background:#4caf50;color:white;padding:4px 8px; border-radius:3px;">Approve</a>
+        <a href="{% url 'handle_request' req.pk 'reject' %}" style="background:#f44336;color:white;padding:4px 8px; border-radius:3px;">Reject</a>
+      {% else %}-{% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">No requests for your items.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

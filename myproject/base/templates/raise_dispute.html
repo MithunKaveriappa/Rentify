@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#f44336;">Raise Dispute for Request #{{ rental_request.id }}</h2>
+<form method="post" style="width:350px;margin:auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background:#f44336;color:#fff;padding:7px 17px;border-radius:5px;">Submit Dispute</button>
+</form>
+{% endblock %}

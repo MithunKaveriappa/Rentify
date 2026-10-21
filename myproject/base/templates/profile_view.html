@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 class="heading">My Profile</h2>
+<div class="profile-container" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+
+    {% if userprofile.profile_picture %}
+        <img src="{{ userprofile.profile_picture.url }}" alt="Profile Picture" style="width:120px; height:120px; border-radius:60px; box-shadow:0 0 12px #00bcd4;">
+    {% else %}
+        <div style="width:120px; height:120px; border-radius:60px; background:#eee; display:flex; align-items:center; justify-content:center; color:#bbb; font-size:64px;">
+            <span>{{ userprofile.full_name|slice:":1"|upper }}</span>
+        </div>
+    {% endif %}
+
+    <table class="main-table" cellpadding="7" style="margin:auto; min-width:320px;">
+        <tr><td><b>Full Name:</b></td><td>{{ userprofile.full_name }}</td></tr>
+        <tr><td><b>Username:</b></td><td>{{ userprofile.user.username }}</td></tr>
+        <tr><td><b>Email:</b></td><td>{{ userprofile.user.email }}</td></tr>
+        <tr><td><b>Contact Number:</b></td><td>{{ userprofile.contact_number }}</td></tr>
+        <tr><td><b>City:</b></td><td>{{ userprofile.city }}</td></tr>
+        <tr><td><b>Address:</b></td><td>{{ userprofile.address }}</td></tr>
+        <tr><td><b>Wallet Balance:</b></td><td>₹{{ userprofile.wallet_balance }}</td></tr>
+        <tr><td><b>Verified:</b></td>
+            <td>
+                {% if userprofile.is_verified %}
+                    <span style="color:green;font-size:18px;">✔ Verified</span>
+                {% else %}
+                    <span style="color:#f44336;font-size:18px;">❌ Not Verified</span>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <a href="{% url 'update_profile_user' %}">
+        <button class="btn glow" type="button">Edit Profile</button>
+    </a>
+</div>
+{% endblock %}

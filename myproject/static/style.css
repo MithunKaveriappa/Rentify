@@ -1,0 +1,142 @@
+/* ---- General Reset and Base ---- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg,#ecf0f3 0%,#fafafa 100%);
+    min-height: 100vh;
+    transition: background 0.5s;
+    color: #1e1e2f;
+}
+
+a { transition: color 0.25s; }
+a:hover { color: #00bcd4 !important; text-decoration: underline; }
+
+/* ---- Navbar ---- */
+nav { position: relative; z-index: 100; }
+nav .logo a {
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0,188,212,0.15);
+}
+
+/* Buttons */
+button, .btn {
+    font-size: 15px;
+    padding: 6px 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,188,212,0.05);
+    transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.15s;
+}
+button:active, .btn:active { transform: scale(0.97); }
+button:hover, .btn:hover { background: #0097a7; color: #fff; }
+
+/* Main Content Fade-in Animation */
+.main-content {
+    animation: fadeIn 1s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Tables ---- */
+table {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+    margin-bottom: 35px;
+    transition: box-shadow 0.3s;
+}
+th, td {
+    font-size: 15px;
+    padding: 10px 14px;
+}
+tr:nth-child(even) { background: #f8f8ff; }
+tr:hover { background: #e6f7ff; transition: background 0.2s; }
+
+/* ---- Forms ---- */
+form {
+    background: #f5fafd;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,188,212,0.10);
+    padding: 22px 30px;
+    max-width: 500px;
+    margin: 20px auto 27px auto;
+    animation: fadeInForm 0.9s;
+}
+@keyframes fadeInForm {
+    from { opacity: 0; transform: scale(.94); }
+    to { opacity: 1; transform: scale(1); }
+}
+input, select, textarea {
+    border: 1.5px solid #cfd8dc;
+    border-radius: 4px;
+    padding: 10px 11px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    width: 100%;
+    transition: border-color 0.22s, box-shadow 0.22s;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #00bcd4;
+    box-shadow: 0 0 10px rgba(0,188,212,0.19);
+}
+
+/* ---- Footer ---- */
+footer {
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: #222;
+    color: #fff;
+    z-index: 25;
+    padding-bottom: 18px;
+    box-shadow: 0 -2px 16px #22222221;
+    position: relative;
+    animation: footerSlideIn .9s;
+}
+@keyframes footerSlideIn {
+    from { opacity: 0; transform: translateY(65px);}
+    to   { opacity: 1; transform: translateY(0);}
+}
+footer a { color: #ddd; transition: color 0.25s; }
+footer a:hover { color: #00bcd4; }
+
+/* ---- Notification Anim ---- */
+.unread-notification { 
+    animation: pulseBg 1.2s;
+}
+@keyframes pulseBg {
+    from { background: #fff;}
+    50% { background: #e6f7ff;}
+    to   { background: #e6f7ff;}
+}
+
+/* ---- Message Flash ---- */
+#message p {
+    animation: fadeOut 3s forwards;
+    background: #e3fcec;
+    border-left: 4px solid #00bcd4;
+    margin: 4px 0;
+    padding: 10px;
+    color:#00796b;
+    font-weight: bold;
+    border-radius: 3px;
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* ---- Social Icon Hover ---- */
+.social-icons a { font-weight: bold; }
+.social-icons a:hover { text-shadow: 0 2px 16px #00bcd436; }
+
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
+    nav, .footer-content { padding: 8px 10px !important; }
+    form { padding: 14px 5px; }
+    table { font-size: 14px; }
+    th, td { padding: 7px 6px; }
+}

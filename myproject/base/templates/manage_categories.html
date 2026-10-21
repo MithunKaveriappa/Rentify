@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Category List (Admin)</h2>
+<a href="{% url 'add_category' %}" style="background:#4caf50;color:#fff;padding:7px 18px;border-radius:5px;margin-bottom:10px;display:inline-block;">Add Category</a>
+<table border="1" cellpadding="6" style="margin:auto;width:70%;background:#f8f8ff;">
+<tr style="background:#1e1e2f;color:#fff;">
+    <th>Name</th><th>Slug</th><th>Description</th><th>Actions</th>
+</tr>
+{% for cat in categories %}
+<tr>
+    <td>{{ cat.name }}</td>
+    <td>{{ cat.slug }}</td>
+    <td>{{ cat.description }}</td>
+    <td>
+        <a href="{% url 'edit_category' cat.id %}">Edit</a> |
+        <a href="{% url 'delete_category' cat.id %}" style="color:red;">Delete</a>
+    </td>
+</tr>
+{% empty %}
+<tr><td colspan="4">No categories found.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Add Review for "{{ item.title }}"</h2>
+<form method="post" style="width:350px;margin:auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background:#4caf50;color:#fff;padding:7px 17px;border-radius:5px;">Submit Review</button>
+</form>
+{% endblock %}

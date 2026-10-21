@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">All Available Items for Rent</h2>
+<form method="get" style="margin: 12px 0; display: flex; gap: 10px; align-items: center;">
+    <input type="text" name="q" placeholder="Search items..." value="{{ query }}" style="padding:5px;">
+    <select name="category" style="padding:5px;">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+          <option value="{{ cat.id }}" {% if selected_category == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" style="background: #00bcd4; color: white; border:none; padding: 5px 12px; border-radius:4px;">Search</button>
+</form>
+<table border="1" cellpadding="7" cellspacing="0" style="width: 95%; margin: auto; background-color: #f8f8ff;">
+  <tr style="background:#1e1e2f; color:#fff;">
+    <th>Title</th>
+    <th>Category</th>
+    <th>Condition</th>
+    <th>Price/Day</th>
+    <th>Owner</th>
+    <th>Actions</th>
+  </tr>
+  {% for item in page_obj %}
+  <tr>
+    <td>{{ item.title }}</td>
+    <td>{{ item.category }}</td>
+    <td>{{ item.get_condition_display }}</td>
+    <td>₹{{ item.daily_rent_price }}</td>
+    <td>{{ item.owner.full_name }}</td>
+    <td>
+      <a href="{% url 'item_public_view' item.slug %}" style="color:#00bcd4;">View</a>
+      {% if request.user.is_authenticated and item.owner != request.user.profile %}
+        <a href="{% url 'item_detail' item.slug %}" style="color:#00bcd4;">View</a>
+        <a href="{% url 'add_to_wishlist' item.slug %}">★ Wishlist</a>
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6" style="text-align:center;">No items found.</td></tr>
+  {% endfor %}
+</table>
+<div style="margin:14px 0;">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">&lt; Prev</a>
+  {% endif %}
+  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next &gt;</a>
+  {% endif %}
+</div>
+{% endblock %}

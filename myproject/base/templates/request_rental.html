@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Request Rental for "{{ item.title }}"</h2>
+<form method="post" style="width:400px;margin:auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background:#00bcd4;color:#fff;padding:7px 17px;border:none; border-radius:5px;">Request</button>
+</form>
+{% endblock %}

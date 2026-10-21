@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Rental Payment for "{{ rental_request.item.title }}"</h2>
+<p>Total Amount (incl. Deposit): <b>₹{{ amount }}</b></p>
+<form id="razorpay-form" method="post">
+    {% csrf_token %}
+    <button id="razorpay-button" type="button" style="background:#00bcd4;color:#fff;padding:8px 20px;border:none;border-radius:4px;">Pay Now</button>
+</form>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.getElementById('razorpay-button').onclick = function(e){
+        var options = {
+            "key": "{{ razorpay_key_id }}",
+            "amount": "{{ amount|floatformat:0 }}00",
+            "currency": "INR",
+            "name": "{{ user_profile.full_name }}",
+            "description": "Rental Payment",
+            "order_id": "{{ razorpay_order_id }}",
+            "handler": function (response){
+                var f = document.getElementById('razorpay-form');
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "razorpay_payment_id";
+                input.value = response.razorpay_payment_id;
+                f.appendChild(input);
+                f.submit();
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock %}

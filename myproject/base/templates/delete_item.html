@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color: #f44336;">Delete Item</h2>
+<p>Are you sure you want to delete '<b>{{ item.title }}</b>'?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background:#f44336;color:#fff;padding:7px 20px;border:none;border-radius:5px;">Yes, Delete</button>
+    <a href="{% url 'my_items' %}" style="margin-left:15px;">Cancel</a>
+</form>
+{% endblock %}

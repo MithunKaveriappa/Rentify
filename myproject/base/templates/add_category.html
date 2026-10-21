@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">{% if category %}Edit{% else %}Add{% endif %} Category</h2>
+<form method="post" style="width:400px;margin:auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background:#00bcd4;color:white;padding:7px 20px;border-radius:5px;">Save</button>
+</form>
+{% endblock %}

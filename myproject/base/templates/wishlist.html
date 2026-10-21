@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">My Wishlist</h2>
+<table border="1" cellpadding="6" style="width:95%; background:#f8f8ff;">
+  <tr style="background:#1e1e2f;color:#fff;"><th>Item</th><th>Owner</th><th>Added On</th><th>Actions</th></tr>
+  {% for w in wishlists %}
+  <tr>
+    <td>{{ w.item.title }}</td>
+    <td>{{ w.item.owner.full_name }}</td>
+    <td>{{ w.added_at|date:"Y-m-d" }}</td>
+    <td>
+      <a href="{% url 'checkout_wishlist' w.item.slug %}" style="background:#2196f3;color:#fff;padding:3px 8px;border-radius:3px;">Checkout</a>
+      <a href="{% url 'remove_from_wishlist' w.item.slug %}" style="color:red;">Remove</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="4">Your wishlist is empty.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

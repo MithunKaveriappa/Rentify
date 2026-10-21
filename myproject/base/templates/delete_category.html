@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#f44336;">Delete Category</h2>
+<p>Are you sure you want to delete '<b>{{ category.name }}</b>'?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background:#f44336;color:#fff;padding:7px 20px;border-radius:5px;">Yes, Delete</button>
+    <a href="{% url 'manage_categories' %}" style="margin-left:15px;">Cancel</a>
+</form>
+{% endblock %}

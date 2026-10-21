@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% block content %}
+
+<h2 style="color:#00bcd4;">Notifications</h2>
+<ul style="list-style:none; padding: 0;">
+{% for n in notifications %}
+    <li class="{% if not n.is_read %}unread-notification{% endif %}" style="border-bottom: 1px solid #eee; padding:7px;">
+      <b>{{ n.title }}</b><br>
+      {{ n.body }}<br>
+      <small>{{ n.created_at|naturaltime }}</small>
+
+      {# ACTION BUTTONS for rental requests ONLY  #}
+      {% if n.related_request and n.related_request.status == 'PENDING' %}
+        <a href="{% url 'handle_request' n.related_request.pk 'approve' %}" style="color:green; margin-left:12px;">Accept</a>
+        <a href="{% url 'handle_request' n.related_request.pk 'reject' %}" style="color:red; margin-left:10px;">Decline</a>
+      {% endif %}
+
+      {# Mark as read for non-actionable notifications #}
+      {% if not n.is_read %}
+         <a href="{% url 'mark_notification_read' n.pk %}" style="color:#00bcd4; margin-left:12px;">Mark as read</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No notifications.</li>
+   {% endfor %}
+</ul>
+<form action="{% url 'clear_read_notifications' %}" method="post" style="margin-bottom:15px;">
+    {% csrf_token %}
+    <button class="btn glow" type="submit" onclick="return confirm('Delete ALL read notifications?')">Clear Read Notifications</button>
+</form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h2 style="color:#00bcd4;">{{ item.title }}</h2>
+{% if item.image %}
+<img src="{{ item.image.url }}" alt="Item Image" style="max-width:240px; max-height:180px; border-radius:8px; margin-bottom:10px;">
+{% endif %}
+
+<table cellpadding="6" style="margin:auto;">
+    <tr><td><b>Category:</b></td><td>{{ item.category }}</td></tr>
+    <tr><td><b>Condition:</b></td><td>{{ item.get_condition_display }}</td></tr>
+    <tr><td><b>Rent Per Day:</b></td><td>₹{{ item.daily_rent_price }}</td></tr>
+    <tr><td><b>Deposit:</b></td><td>₹{{ item.deposit_amount }}</td></tr>
+    <tr><td><b>Owner:</b></td><td>{{ item.owner.full_name }}</td></tr>
+    <tr><td><b>Description:</b></td><td>{{ item.description }}</td></tr>
+    <tr>
+        <td><b>Available:</b></td>
+        <td>{% if item.is_available %}<span style="color:green;">Yes</span>{% else %}<span style="color:#f44336;">No</span>{% endif %}</td>
+    </tr>
+</table>
+
+<h3 style="margin-top:25px;">Reviews</h3>
+<table border="1" cellpadding="6" style="width:85%; margin:auto; background:#f8f8ff;">
+  <tr style="background:#e3e8ee;">
+    <th>User</th>
+    <th>Rating</th>
+    <th>Comment</th>
+    <th>Date</th>
+  </tr>
+  {% for review in reviews %}
+  <tr>
+    <td>{{ review.reviewer.full_name }}</td>
+    <td>{{ review.rating }}</td>
+    <td>{{ review.comment }}</td>
+    <td>{{ review.created_at|date:"Y-m-d" }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="4" style="color:#999;">No reviews yet.</td></tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

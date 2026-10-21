@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}RENTIFY{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1 0 auto;
+        }
+    </style>
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="main-content">
+        <center>
+            <div id="message">
+                {% for i in messages %}
+                <p style="color: blue;">{{i}}</p>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function(){
+                    var msg = document.getElementById('message');
+                    if (msg){ msg.style.display='none' }
+                },3000)
+            </script>
+            {% block content %}
+            {% endblock %}
+        </center>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

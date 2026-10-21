@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2 style="color:#00bcd4;">Items Available for Rent (except yours)</h2>
+<form method="get" style="margin: 10px 0;">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search..." style="padding:5px;">
+    <select name="category" style="padding:5px;">
+        <option value="">Category</option>
+        {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == selected_category %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" style="background:#00bcd4;color:white;padding:4px 15px;border-radius:4px;">Filter</button>
+</form>
+<table border="1" cellpadding="6" style="width:95%; margin:auto;">
+<tr style="background:#1e1e2f; color:#fff;">
+    <th>Title</th>
+    <th>Category</th>
+    <th>Owner</th>
+    <th>Condition</th>
+    <th>Rent/Day</th>
+    <th>Action</th>
+</tr>
+{% for item in items %}
+<tr>
+    <td>{{ item.title }}</td>
+    <td>{{ item.category }}</td>
+    <td>{{ item.owner.full_name }}</td>
+    <td>{{ item.get_condition_display }}</td>
+    <td>₹{{ item.daily_rent_price }}</td>
+    <td>
+        <a href="{% url 'item_detail' item.slug %}">View</a>
+        <a href="{% url 'add_to_wishlist' item.slug %}">Wishlist</a>
+    </td>
+</tr>
+{% empty %}
+<tr><td colspan="6">No items found.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}
