@@ -1,6 +1,10 @@
 # 🏠 RENTIFY — Peer-to-Peer Item Rental Marketplace
 
-A full-stack web application built with Django that enables users to list personal items for rent, browse available items, request rentals, and process payments securely.
+A full-stack web application built with Django that lets users list personal items for rent, browse available items, request rentals, and pay through Razorpay (test mode).
+
+## Notes
+- Payments run in Razorpay test mode. Use Razorpay's test cards.
+- Not deployed. Clone the repo and run it locally using the steps below.
 
 ## ✨ Features
 
@@ -18,8 +22,8 @@ A full-stack web application built with Django that enables users to list person
 ## 🛠️ Tech Stack
 
 - **Backend:** Python 3.13, Django 5.2
-- **Database:** SQLite (development) / PostgreSQL (production)
-- **Payments:** Razorpay
+- **Database:** SQLite (development) 
+- **Payments:** Razorpay (Test Mode)
 - **Frontend:** Django Templates, Bootstrap 5, CSS3
 - **Authentication:** Django Auth
 
